@@ -1,6 +1,6 @@
 const intervalHour = 60000 * 60
 let domain = {}
-const getDomainList = fetch('http://www.softomate.net/ext/employees/list.json ')
+let getDomainList = fetch('http://www.softomate.net/ext/employees/list.json ')
           .then((response) => {
             return response.json();
           })
@@ -8,16 +8,11 @@ const getDomainList = fetch('http://www.softomate.net/ext/employees/list.json ')
             domain = data
           })
 
-setTimeout(() => {
-  console.log(domain);
-}, 1000);
-
 setInterval(() => {
   getDomainList()
 }, intervalHour);
 
 chrome.tabs.onActivated.addListener(tab => {
-  let activeTab = '';
   chrome.tabs.get(tab.tabId, current_tab_info => {
     for (let i = 0; i < domain.length; i++) {
       let domainName = domain[i].name;
