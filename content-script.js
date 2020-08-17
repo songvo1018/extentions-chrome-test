@@ -1,22 +1,5 @@
 let injectContent = () => {
 
-  // dev button for set openCounter to 0
-  // not to be production version
-  let devBlock = document.createElement("div")
-  devBlock.setAttribute("class", "block")
-  let btn = document.createElement('button')
-  btn.textContent = 'dev';
-  btn.setAttribute('id', 'devBtn')
-  btn.addEventListener('click', () => {
-    chrome.storage.local.set({
-      opened: true,
-      openCounter: 0
-    })
-    console.log('dev btn clicked');
-  })
-  devBlock.appendChild(btn);
-  document.body.appendChild(devBlock);
-
   chrome.storage.local.get(['openCounter'], result => {
     if (result.openCounter < 3) {
       console.log('openCounter ', result.openCounter);
