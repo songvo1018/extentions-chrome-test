@@ -20,7 +20,6 @@ function injectContent() {
       console.log('openCounter ', result.openCounter);
       chrome.storage.local.get(['opened'], result => {
         if (result.opened) {
-          console.log('opened: ', result.opened);
           initialize()
         } else {
           console.log('message has closed user');
