@@ -1,15 +1,24 @@
+
+
 let injectContent = () => {
 
-  chrome.storage.local.get(['openCounter'], result => {
-    if (result.openCounter < 3) {
-      console.log('openCounter ', result.openCounter);
+  chrome.storage.local.get(['veryfiedDomain'], result => {
+    if (result.veryfiedDomain) {
       chrome.storage.local.get(['opened'], result => {
         if (result.opened) {
           initialize()
         } else {
           console.log('message has closed user');
         }
-      })
+    })
+    } else {
+      console.log('not veryfied domain!');
+    }
+  })
+
+  chrome.storage.local.get(['openCounter'], result => {
+    if (result.openCounter < 3) {
+      console.log('openCounter ', result.openCounter);      
     }
   })
 

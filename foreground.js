@@ -10,6 +10,7 @@ if (document) {
       let hostname = document.location.hostname;
 
       if (hostname == domainName || hostname == domainNameWithWWW) {
+        console.log('match');
         chrome.storage.local.set({
           veryfiedDomian: true,
           message: domainMessage
