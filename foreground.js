@@ -1,17 +1,10 @@
 if (document) {
   chrome.storage.local.get(['data'], result => {
     const domain = result.data
-    // const domainList = []
 
     for (let i = 0; i < domain.length; i++) {
       let domainName = domain[i].domain;
       let domainNameWithWWW = `www.${domain[i].domain}`;
-
-      // domainList.push(domainName)
-      // chrome.storage.local.set({
-      //   domainList
-      // })
-
 
       let domainMessage = domain[i].message;
       let hostname = document.location.hostname;

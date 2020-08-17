@@ -1,5 +1,7 @@
-function injectContent() {
+let injectContent = () => {
 
+  // dev button for set openCounter to 0
+  // not to be production version
   let devBlock = document.createElement("div")
   devBlock.setAttribute("class", "block")
   let btn = document.createElement('button')

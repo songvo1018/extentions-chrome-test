@@ -1,7 +1,7 @@
 {
-  "name": "test extention",
-  "description": "test extention for SOFTMATE",
-  "version": "0.1.0",
+  "name": "Extention",
+  "description": "Extention for SOFTMATE. Author: Alexey Nosov",
+  "version": "1.0",
   "manifest_version": 2,
   "background": {
     "scripts": ["./background.js"]
