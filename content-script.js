@@ -1,4 +1,4 @@
-let injectContent = () => {
+const MAX_MESSAGE_REPEAT_COUNT = 3;
 
 function matchCurrentUrlWithDomains() {
   if (document) {
@@ -20,11 +20,14 @@ function matchCurrentUrlWithDomains() {
           })
           return
         }
-      })
-    }
-  })
+      }
+    })
+  }
 }
-  const initialize = () => {
+
+const initializeContent = () => {
+  let block = document.createElement("div");
+  block.classList.add("block");
 
   let closeButton = document.createElement("a")
   closeButton.classList.add("close")
@@ -44,32 +47,17 @@ function matchCurrentUrlWithDomains() {
 
   message.classList.add("message");
 
-    let message = document.createElement("span")
-    
-    chrome.storage.local.get(['message'], result => {
-      message.textContent = `${result.message}`;
-    })
-    
-    message.setAttribute("id", "message");
+  block.appendChild(closeButton);
+  block.appendChild(message);
+  document.body.prepend(block);
 
-    block.appendChild(closeButton);
-    block.appendChild(message);
-    document.body.prepend(block);
-
-
-    closeButton.addEventListener("click", () => {
-      block.setAttribute("class", "hide");
-      chrome.storage.local.set({
-        opened: false
-      });
-    })
-  }
 
 
 }
 
+let incrementOpenCounter = () => {
   chrome.storage.local.get(['openCounter'], result => {
-    if (result.openCounter < 4) {
+    if (result.openCounter <= MAX_MESSAGE_REPEAT_COUNT) {
       console.log('open counter:', result.openCounter);
 
       chrome.storage.local.set({
@@ -103,10 +91,8 @@ let injectContent = () => {
     }
   })
 
+  incrementOpenCounter()
 }
 
-chrome.storage.local.get(['veryfiedDomian'], result => {
-  if (result.veryfiedDomian) {
-    injectContent()
-  }
-})
+veryfiedUrl()
+matchCurrentUrlWithDomains()
