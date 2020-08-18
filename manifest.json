@@ -1,7 +1,7 @@
 {
   "name": "Extention",
   "description": "Extention for SOFTMATE. Author: Alexey Nosov",
-  "version": "1.1",
+  "version": "1.3",
   "manifest_version": 2,
   "background": {
     "scripts": ["./background.js"]
@@ -23,11 +23,9 @@
     "https://*.yandex.ru/*",
     "https://*.bing.com/*"
   ],
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["content-script.js"],
-      "css": ["style.css"]
-    }
-  ]
+  "content_scripts": [{
+    "matches": ["<all_urls>"],
+    "js": ["content-script.js"],
+    "css": ["style.css"]
+  }]
 }

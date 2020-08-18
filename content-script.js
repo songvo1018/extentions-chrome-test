@@ -1,13 +1,24 @@
 let injectContent = () => {
 
-  chrome.storage.local.get(['openCounter'], result => {
-    if (result.openCounter < 3) {
-      console.log('openCounter ', result.openCounter);
-      chrome.storage.local.get(['opened'], result => {
-        if (result.opened) {
-          initialize()
-        } else {
-          console.log('message has closed user');
+function matchCurrentUrlWithDomains() {
+  if (document) {
+    chrome.storage.local.get(['data'], result => {
+      const domains = result.data
+
+      for (let i = 0; i < domains.length; i++) {
+        let domainName = domains[i].domain;
+        let domainNameWithWWW = `www.${domains[i].domain}`;
+
+        let domainMessage = domains[i].message;
+        let hostname = document.location.hostname;
+
+        if (hostname == domainName || hostname == domainNameWithWWW) {
+          console.log('match');
+          chrome.storage.local.set({
+            veryfiedDomian: true,
+            message: domainMessage
+          })
+          return
         }
       })
     }
@@ -15,13 +26,23 @@ let injectContent = () => {
 
   const initialize = () => {
 
+  let closeButton = document.createElement("a")
+  closeButton.classList.add("close")
 
-    let block = document.createElement("div");
-    block.setAttribute("class", "block");
+  closeButton.addEventListener("click", () => {
+    block.classList.add("hide");
+    chrome.storage.local.set({
+      opened: false
+    });
+  })
 
-    let closeButton = document.createElement("div")
-    closeButton.setAttribute("id", "closeButton")
-    closeButton.textContent = "+"
+  let message = document.createElement("span")
+
+  chrome.storage.local.get(['message'], result => {
+    message.textContent = `${result.message}`;
+  })
+
+  message.classList.add("message");
 
     let message = document.createElement("span")
     
@@ -45,6 +66,8 @@ let injectContent = () => {
   }
 
 
+}
+
   chrome.storage.local.get(['openCounter'], result => {
     if (result.openCounter < 4) {
       console.log('open counter:', result.openCounter);
@@ -54,6 +77,31 @@ let injectContent = () => {
       });
     }
   });
+}
+
+let veryfiedUrl = () => {
+  chrome.storage.local.get(['veryfiedDomian'], result => {
+    if (result.veryfiedDomian) {
+      injectContent()
+    }
+  })
+
+}
+
+
+let injectContent = () => {
+  chrome.storage.local.get(['openCounter'], result => {
+    if (result.openCounter < MAX_MESSAGE_REPEAT_COUNT) {
+      console.log('openCounter ', result.openCounter);
+      chrome.storage.local.get(['opened'], result => {
+        if (result.opened) {
+          initializeContent()
+        } else {
+          console.log('message has closed user');
+        }
+      })
+    }
+  })
 
 }
 
