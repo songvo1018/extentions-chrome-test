@@ -23,7 +23,7 @@ function matchCurrentUrlWithDomains() {
       })
     }
   })
-
+}
   const initialize = () => {
 
   let closeButton = document.createElement("a")
