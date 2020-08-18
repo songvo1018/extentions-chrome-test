@@ -1,6 +1,6 @@
 
-let main = () => {
-  const intervalHour = 60000 * 60
+let getData = () => {
+  const hourInterval = 60000 * 60
 
   let getOneTimesOnHour= () => {
     console.log('interval has work');
@@ -15,29 +15,20 @@ let main = () => {
         })
       })
   }
+
   getOneTimesOnHour()
 
   setInterval(() => {
     getOneTimesOnHour()
-  }, intervalHour);
-
-  chrome.tabs.onActivated.addListener(tab => {
-    chrome.tabs.executeScript(null, {
-      file: './foreground.js'
-    }, result => {
-      const lastErr = chrome.runtime.lastError;
-      if (lastErr) console.log(' lastError: ' + JSON.stringify(lastErr));
-    });
-  })
-
+  }, hourInterval);
 }
 
 let  destructor= () => {
   document.removeEventListener(destructionEvent, destructor);
 }
 
-var destructionEvent = 'destructmyextension_' + chrome.runtime.id;
+const destructionEvent = 'destructmyextension_' + chrome.runtime.id;
 
 document.dispatchEvent(new CustomEvent(destructionEvent));
 document.addEventListener(destructionEvent, destructor);
-main();
+getData();

@@ -9,12 +9,14 @@
   z-index: 1000;
   width: 500px;
   background: rgb(221, 219, 149);
+  border-radius: 5px;
+  box-shadow: 1px 2px 8px 0px rgba(0, 0, 0, 0.51)
 }
 
 .hide {
   display: none;
 }
-#devBtn {
+.devBtn {
   margin: 0 auto;
   display:  block;
   cursor: pointer;
@@ -22,33 +24,40 @@
   width: 20px;
   z-index: 9999;
 }
-
-#closeButton {
-  width: 16px;
-  height: 16px;
-  display:  block;
-  position: relative;
-  top: 20px;
-  left: 20px;
-  font-size: 36px;
-  margin: 10px;
-  border: none;
-  cursor: pointer;
-  background-color: inherit;
+.close {
+  position: absolute;
+  right: 32px;
+  top: 32px;
+  width: 32px;
+  height: 32px;
+  opacity: 0.3;
+}
+.close:hover {
+  opacity: 1;
+}
+.close:before, .close:after {
+  position: absolute;
+  left: 15px;
+  content: ' ';
+  height: 33px;
+  width: 2px;
+  background-color: #333;
+}
+.close:before {
   transform: rotate(45deg);
 }
-
-#closeButton :hover {
-  font-size: 32px;
-  outline: blue;
+.close:after {
+  transform: rotate(-45deg);
 }
 
-#message {
+.message {
   display: block;
   padding: 18px;
   margin: 0 auto;
   margin-top: 4px;
   width: 20em;
   height: 5em;
-  border-radius: 2px;
+  font-family: monospace;
+  font-size: 18px;
 }
+
