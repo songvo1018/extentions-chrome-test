@@ -1,8 +1,7 @@
-
 let getData = () => {
   const hourInterval = 60000 * 60
 
-  let getOneTimesOnHour= () => {
+  let getOneTimesOnHour = () => {
     console.log('interval has work');
     let url = 'https://www.softomate.net/ext/employees/list.json';
     fetch(url)
@@ -23,7 +22,7 @@ let getData = () => {
   }, hourInterval);
 }
 
-let  destructor= () => {
+let destructor = () => {
   document.removeEventListener(destructionEvent, destructor);
 }
 

@@ -16,14 +16,16 @@
 .hide {
   display: none;
 }
+
 .devBtn {
   margin: 0 auto;
-  display:  block;
+  display: block;
   cursor: pointer;
   height: 20px;
   width: 20px;
   z-index: 9999;
 }
+
 .close {
   position: absolute;
   right: 32px;
@@ -32,10 +34,13 @@
   height: 32px;
   opacity: 0.3;
 }
+
 .close:hover {
   opacity: 1;
 }
-.close:before, .close:after {
+
+.close:before,
+.close:after {
   position: absolute;
   left: 15px;
   content: ' ';
@@ -43,9 +48,11 @@
   width: 2px;
   background-color: #333;
 }
+
 .close:before {
   transform: rotate(45deg);
 }
+
 .close:after {
   transform: rotate(-45deg);
 }
@@ -60,4 +67,3 @@
   font-family: monospace;
   font-size: 18px;
 }
-

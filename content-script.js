@@ -1,17 +1,17 @@
 const MAX_MESSAGE_REPEAT_COUNT = 3;
 
 function matchCurrentUrlWithDomains() {
-  if (document) {  
+  if (document) {
     chrome.storage.local.get(['data'], result => {
       const domains = result.data
-  
+
       for (let i = 0; i < domains.length; i++) {
         let domainName = domains[i].domain;
         let domainNameWithWWW = `www.${domains[i].domain}`;
-  
+
         let domainMessage = domains[i].message;
         let hostname = document.location.hostname;
-  
+
         if (hostname == domainName || hostname == domainNameWithWWW) {
           console.log('match');
           chrome.storage.local.set({
@@ -31,21 +31,20 @@ const initializeContent = () => {
 
   let closeButton = document.createElement("a")
   closeButton.classList.add("close")
-  // closeButton.setAttribute("href", '#')
 
   closeButton.addEventListener("click", () => {
-    block.classList.add( "hide");
+    block.classList.add("hide");
     chrome.storage.local.set({
       opened: false
     });
   })
 
   let message = document.createElement("span")
-  
+
   chrome.storage.local.get(['message'], result => {
     message.textContent = `${result.message}`;
   })
-  
+
   message.classList.add("message");
 
   block.appendChild(closeButton);
@@ -53,7 +52,7 @@ const initializeContent = () => {
   document.body.prepend(block);
 
 
-  
+
 }
 
 let incrementOpenCounter = () => {
@@ -74,30 +73,11 @@ let veryfiedUrl = () => {
       injectContent()
     }
   })
-  
+
 }
 
 
 let injectContent = () => {
-  // dev button for set openCounter to 0
-  // not to be production version
-  let devBlock = document.createElement("div")
-  devBlock.classList.add("block")
-  let btn = document.createElement('button')
-  btn.textContent = 'dev';
-  btn.setAttribute('class', 'devBtn')
-  btn.classList.add('devBtn')
-  btn.addEventListener('click', () => {
-    chrome.storage.local.set({
-      opened: true,
-      openCounter: 0,
-      veryfiedDomian: false
-    })
-    console.log('dev btn clicked');
-  })
-  devBlock.appendChild(btn);
-  document.body.appendChild(devBlock);
-
   chrome.storage.local.get(['openCounter'], result => {
     if (result.openCounter < MAX_MESSAGE_REPEAT_COUNT) {
       console.log('openCounter ', result.openCounter);
